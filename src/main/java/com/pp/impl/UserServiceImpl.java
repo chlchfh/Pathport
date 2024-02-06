@@ -1,7 +1,7 @@
 package com.pp.impl;
 
 import com.pp.domain.User;
-import com.pp.persistence.UserRepository;
+import com.pp.repository.UserRepository;
 import com.pp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
