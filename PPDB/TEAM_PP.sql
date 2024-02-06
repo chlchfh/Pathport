@@ -924,7 +924,7 @@ CREATE TABLE `support`  (
   `sup_title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `sup_cont` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `sup_ref` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `sup_date` date NULL DEFAULT sysdate,
+  `sup_date` date NULL DEFAULT sysdate(),
   PRIMARY KEY (`sup_code`) USING BTREE,
   INDEX `FK_SUPPORT_CLS_TO_SUPPORT_1`(`sc_code`) USING BTREE,
   INDEX `FK_USER_TO_SUPPORT_1`(`user_email`) USING BTREE,
