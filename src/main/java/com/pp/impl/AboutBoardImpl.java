@@ -1,7 +1,7 @@
 package com.pp.impl;
 
 import com.pp.domain.AboutBoard;
-import com.pp.persistence.AboutBoardRepository;
+import com.pp.repository.AboutBoardRepository;
 import com.pp.service.AboutBoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
