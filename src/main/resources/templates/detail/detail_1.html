@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/4.3.1/jquery-ui.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/detailPage1.css}"><!-- 앞서 만든 스타일 시트를 추가합니다 -->
+    <link rel="stylesheet" th:href="@{/css/imgClick.css}">
+    <!--    <link rel="stylesheet" th:href="@{/css/search.css}">-->
+    <title>상세페이지1</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    * {
+        font-family: 'Pretendard-Regular', sans-serif;
+    }
+
+    /* 스크롤바 설정*/
+    *::-webkit-scrollbar{
+        width: 10px;
+    }
+
+    /* 스크롤바 막대 설정*/
+    *::-webkit-scrollbar-thumb{
+        background-color: gainsboro;
+        /* 스크롤바 둥글게 설정    */
+        border-radius: 5px;
+        border-style: hidden;
+    }
+
+    header {
+        padding-bottom: 5px;
+        border-style: hidden;
+        border-width: 0 0 1px 0;
+        box-shadow: 0 4px 4px -4px lightgray;
+    }
+
+    .sectionBody {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container.mt-4{
+        display: block;
+    }
+
+    .content.text-left {
+        display: flex;
+    }
+
+    .recTrip {
+        padding-top: 10px;
+        max-width: 800px;
+    }
+
+    .container {
+        margin-top: 3%;
+    }
+
+    .navbar {
+        margin-top: 30px;
+        margin-left: 200px;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-nav {
+        margin-right: 200px;
+    }
+
+
+    #top-button {
+        position: fixed;
+        margin-right: 100px;
+        border-radius: 50%;
+        bottom: 70px;
+        right: 160px;
+        width: 40px;
+        font-size: 40px;
+    }
+
+    #kakao-talk-channel-chat-button {
+        position: fixed;
+        bottom: 80px; /* Adjust this value as needed */
+        right: 20px; /* Adjust this value as needed */
+        margin-right: 100px;
+    }
+
+
+    footer {
+        display: flex;
+        justify-content: space-around;
+        margin-top: auto;
+        background-color: #f1f1f1; /* Adjust the background color as needed */
+        padding: 10px;
+        color: lightslategray;
+    }
+
+    .footer-info {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 12px;
+    }
+
+
+    .buttonBox {
+        position: sticky;
+        top:20px;
+        margin-top:35px;
+        margin-left: 50px;
+        padding: 10px;
+        border: 1px solid #9f9f9f;
+        border-radius: 10px;
+        height: 260px;
+        display: block;
+        justify-content: center;
+    }
+
+    .listBox {
+        margin: 10px;
+        max-width: 250px;
+        border: 1px solid #9f9f9f;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+    }
+    .regiContent {
+        display: flex;
+        /*align-center: center;*/
+        justify-content: space-between;
+    }
+
+    .swiper-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .swiper-wrapper{
+        margin-top: 5px;
+        height: auto;
+        width:100%;
+        position: relative;
+    }
+
+    .swiper-slide {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .slide-img {
+        width: 100%;
+    }
+
+</style>
+<body >
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <form class="form-inline my-2 my-lg-0" action="/destinations/search?keyword=">
+            <a href="/">
+                <img th:src="@{/img/pp로고.png}" alt="PP 로고" style="width: 150px; margin-top: 15px; margin-left: 0;">
+            </a>
+        </form>
+
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <!-- 오른쪽 링크들 -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/aboutus/aboutus}">고객 지원</a>
+                </li>
+                <!-- 로그인 상태인 경우 프로필 이미지와 드롭다운 메뉴 표시 -->
+                <li class="nav-item dropdown" th:if="${user != null}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img th:src="${user.profileImg}" alt="프로필 이미지" class="profile-image">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/mypage">마이페이지</a>
+                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    </div>
+                </li>
+
+                <!-- 로그인 상태가 아닌 경우 로그인 링크 표시 -->
+                <li class="nav-item" th:if="${user == null}">
+                    <a class="nav-link" href="/login">로그인</a>
+                </li>
+            </ul>
+        </nav>
+    </nav>
+</header>
+
+
+<section class="sectionBody">
+    <div class="content text-left" >
+        <article class="recTrip" >
+            <div class="container" th:each="destination : ${destinations[0]}" style="max-width:1200px" > <!---->
+                <div class="title" >
+                    <h2 th:text = "${destination.desName}" style="font-weight: bold; font-size: 4em;"> </h2></div> <!-- th:each="destination : ${destination}" th:text="${destination.desName}"-->
+
+                <div><hr></div>
+
+                <div class="tripContext" > <!--th:each="image : ${destinations.images}"-->
+                    <div> <!--th:each="image : ${images[0]}"-->
+                        <div th:each="image : ${destination.images}">
+                            <img th:src="${image.imgCode}" style = "width: 100%" class="image" alt="여행지 이미지"/> <!--th:src="${destination.images}"-->
+                            <h3  style="margin-top: 20px;">여행지 설명</h3>
+                            <h3  th:text="${destination.desCont}" style="margin-top: 20px;"></h3>
+                        </div>
+                    </div>
+                </div>
+                <div><hr></div>
+
+                <div class="ReviewContainer" >
+                    <div class="reviewStar"></div>
+                    <div class="reviewNumber"><div class="reviewNum" >후기 &nbsp; 후기 개수 </div></div>
+                    <div th:each = "review : ${destination.reviews}">
+                        <div id="rv_arrange" style="display: flex;">
+                            <p> 여행객 &nbsp; </p>
+                            <p th:text = "${review.userEmail.nn}"> &nbsp; {userNickname}</p> &nbsp; &nbsp;
+                            <p th:text = "${review.rvDate}">{REVIEW.RV_Date}</p>
+                        </div>
+                        <p style="font-size: 1.2em; font-weight: bolder;" th:text = "${review.rvTitle}">{REVIEW.RV_Title}</p>
+
+                        <div class="regiDate"></div>
+                        <div class="reviewContent">
+                            <div class="regiContent">
+                                <div class="reviewText">
+                                    <h6 th:text = "${review.rvCont}">
+                                        ${REVIEW.RV_CONT}
+                                    </h6>
+                                </div>
+                                <div class="popImages" th:each="image : ${review.images}">
+                                    <!-- 이미지 클릭 시 모달창을 띄우기 위해 button 태그로 감싸고 data-bs-target에 모달창의 아이디를 넣음 -->
+                                    <a
+                                            class="modalPop"
+                                            type="button"
+                                            th:id="'Img-right-' + ${image.imgCode}"
+                                            data-bs-toggle="modal"
+                                            th:data-target="'#popup-' + ${image.imgCode}"
+                                    >
+                                        <img class="img_right" th:src="${image.imgCode}" style="width:125px; " alt="Slide 1"/>
+                                    </a>
+                                    <div class="modal fade" th:id="'popup-' + ${image.imgCode}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title" id="modal-title" style="text-align:center;" th:each="review, stat : ${destination.reviews}" th:if="${stat.index == 0}" th:text= "${review.rvTitle}"></h6>
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                                                            <div class="carousel-inner">
+                                                                <div class="carousel-item active">
+                                                                    <a th:each="image, stat : ${destination.images}">
+                                                                        <img  class="d-block w-100" th:src="${image.imgCode}" alt="Image" style=" width: 250px; height: 150px" />
+                                                                    </a>
+                                                                    <hr>
+                                                                    <div th:each="review, stat : ${destination.reviews}">
+                                                                        <a class="d-block w-100" th:text="${review.rvCont}" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Prev 버튼 -->
+                                                <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">이전</span>
+                                                </a>
+                                                <!-- Next 버튼 -->
+                                                <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">다음</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div> <hr> </div>
+                        </div>
+                    </div>
+
+                    <div> 후기 이미지 모음 </div>
+                    <div class="swiper-container" >
+                        <div class="swiper-wrapper" >
+                            <div class="swiper-slide" th:each = "review : ${destination.reviews}">
+                                <a th:each = "images : ${review.images}">
+                                    <img class="slide-img"  th:src="${images.imgCode}" style="width: 200px; height: 150px" alt="1">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swBt-container">
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="between-void"></div>
+        <aside class="buttonBox">
+            <div class="listContainer">
+                <div class=listBox>
+                    <label>
+                        <img th:src="@{/img/review.png}" id="goReview" width=20% alt="저장아이콘" type="button"/> <!--   -->
+                        &nbsp &nbsp &nbsp 리뷰 작성하기
+                    </label>
+                </div>
+                <div class="listBox" id="DetailBox">
+                    <label for="detailLink" style="cursor: pointer;">
+                        <img id="detailLink" th:src="@{/img/review.png}" width="20%" alt="저장아이콘" type="button"/>
+                        &nbsp;&nbsp;&nbsp;추천여행지 보기
+                    </label>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-info">
+        상호명 Pathport <br>
+        주소 서울특별시 서초구 서초대로77길 54 (서초더블유타워 13,14층) <br>
+        제휴 문의 partnership@pathport.com <br>
+        저희는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 상품·거래정보 및 거래에 대하여 책임을 지지않습니다.
+    </p>
+    <p class="footer-info">
+        <strong>고객지원 운영안내</strong><br>
+        채팅 상담 평일 10:00-17:00 <br>
+        유선 상담 평일 11:00-14:00 <br>
+        (점심시간 12:00-13:00) <br>
+        유선상담 0000-0000
+    </p>
+</footer>
+
+<a href="#" class="btn btn-xs btn-block fixed-bottom-right" id="top-button">🔼</a>
+<div id="kakao-talk-channel-chat-button" data-channel-public-id="_rBEwG" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>
+
+<!--<script src="https://code.jquery.com/jquery-4.3.1.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@7.0.8/swiper-bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script th:src="@{/js/kakao.js}"></script>
+<script th:src="@{/js/imgClick.js}"> </script>
+<!--<script src="../js/searchImg.js"></script>-->
+
+<script>
+
+    $(document).ready(function() {
+        $('#DetailBox label').on('click', function(e) {
+            // 클릭 시 이동할 URL을 설정합니다.
+            var url = '/random4';
+
+            // 설정한 URL로 이동합니다.
+            window.location.href = url;
+        });
+    });
+    // DOM이 로드되면 실행되는 코드
+    document.addEventListener('DOMContentLoaded', function () {
+        // Swiper 초기화 및 옵션 설정
+        let mySwiper = new Swiper('.swiper-container', {
+            effect: 'slide',
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+            spaceBetween: 30,
+            // centeredSlides: true,
+            // loop: true,
+            // autoplay: {
+            //     delay: 3000,
+            //     disableOnInteraction: false,
+            // },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        // 다음 버튼 클릭 이벤트 바인딩
+        document.querySelector('.swiper-button-next').addEventListener('click', function () {
+            mySwiper.slideNext();
+        });
+
+        // 이전 버튼 클릭 이벤트 바인딩
+        document.querySelector('.swiper-button-prev').addEventListener('click', function () {
+            mySwiper.slidePrev();
+        });
+    });
+
+    // 이미지를 클릭하여 모달 표시
+    const images = document.querySelectorAll(".modalPop"); // 모든 모달 이미지에 대한 NodeList를 가져옴
+
+    images.forEach(image => {
+        image.addEventListener("click", () => {
+            const modalId = image.getAttribute("data-bs-target"); // 클릭한 이미지의 data-bs-target 속성을 가져옴
+            const modal = document.querySelector(modalId); // 해당 ID를 가진 모달 요소를 가져옴
+            if (modal) {
+                modal.style.display = "block"; // 모달을 표시
+            }
+        });
+    });
+
+    // 닫기 버튼 또는 모달 바깥 영역 클릭 시 모달 숨기기
+    const closeButtons = document.querySelectorAll(".close");
+    closeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const modal = button.closest(".modal");
+            if (modal) {
+                modal.style.display = "none"; // 모달을 숨김
+            }
+        });
+    });
+
+    <!--주소창을 복사하는 스크립트-->
+    // 버튼 요소 가져오기
+    var shareButton = document.getElementById('share');
+
+    // 버튼 클릭 이벤트 리스너 추가
+    shareButton.addEventListener('click', function() {
+        // 현재 페이지의 URL 가져오기
+        var urlToCopy = window.location.href;
+
+        // URL을 클립보드에 복사
+        navigator.clipboard.writeText(urlToCopy)
+            .then(function() {
+                // 복사가 성공한 경우 알림 표시
+                alert('URL이 클립보드에 복사되었습니다: ' + urlToCopy);
+            })
+            .catch(function(error) {
+                // 복사가 실패한 경우 에러 메시지 출력
+                console.error('클립보드 복사 실패:', error);
+            });
+    });
+
+    $(document).ready(function() {
+        function doSearch() {
+            var keyword = $('#search-input').val();
+            if (keyword.length >= 1) {  // 키워드가 1글자 이상일 때만 요청
+                fetch('/destinations/autocomplete?keyword=' + encodeURIComponent(keyword))
+                    .then(response => response.json())
+                    .then(data => {
+                        var html = '';
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<div>' + data[i].desName + '</div>';  // 결과의 desName을 표시
+                        }
+                        $('#autocomplete-results').html(html);
+                    });
+            } else {
+                $('#autocomplete-results').empty();  // 키워드가 짧으면 결과를 지움
+            }
+        }
+
+        $('#search-input').on('input', doSearch);  // 입력이 변경될 때마다 검색
+        $('#search-button').on('click', doSearch);  // 검색 버튼 클릭 시 검색
+
+        $('#search-input').on('keypress', function(e) {
+            if (e.which == 13) {  // 엔터 키 입력 시
+                window.location.href = '/destinations/search?keyword=' + encodeURIComponent($(this).val());
+                return false;  // 기본 동작(폼 제출 등)을 막음
+            }
+        });
+        $('#autocomplete-results').on('click', 'div', function() {
+            window.location.href = '/destinations/search?keyword=' + encodeURIComponent($(this).text());
+        });
+    });
+
+</script>
+</body>
+</html>
+
+

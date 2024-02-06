@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery 추가 -->
+</head>
+<body>
+<!-- 중략 -->
+<div class="search">
+    <!-- 검색창 -->
+    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="Search">
+    <a id="searchButton" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="searchDestinations()">검색</a>
+</div>
+<!-- 검색 결과를 표시할 공간 -->
+<div id="searchResults"></div>
+<!-- 중략 -->
+<script>
+    // 검색 버튼을 눌렀을 때 실행되는 함수
+    function searchDestinations() {
+        var keyword = $("#searchInput").val();
+
+        // 검색 키워드를 서버에 전달
+        $.get("/destinations/search", { keyword: keyword }, function(data) {
+            // 서버로부터 받은 HTML을 화면에 표시
+            $("#searchResults").html(data);
+        });
+    }
+</script>
+</body>
+</html>

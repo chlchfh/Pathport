@@ -1,0 +1,35 @@
+<!-- searchResults.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+
+<h2>Search Results for "<span th:text="${keyword}"></span>"</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Destination Name</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(destinations)}">
+        <td colspan="4">No results found</td>
+    </tr>
+    <tr th:each="destination : ${destinations}">
+        <td th:text="${destination.id}"></td>
+        <td th:text="${destination.desName}"></td>
+        <td th:text="${destination.desLat}"></td>
+        <td th:text="${destination.desLng}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

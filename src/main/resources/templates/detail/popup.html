@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/imgClick.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <title>팝업페이지</title>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="container img">
+        <div class="popImages">
+            <a href="#" data-lightbox="gallery" onclick="openPopup('https://placekitten.com/300/200')">
+                <img src="https://placekitten.com/300/200" alt="이미지 1">
+            </a>
+            <a href="#" data-lightbox="gallery" onclick="openPopup('https://placekitten.com/300/200')">
+                <img src="https://placekitten.com/300/200" alt="이미지 2">
+            </a>
+        </div>
+    </div>
+
+    <div class="popup" id="imagePopup">
+        <div class="popupImageDiv">
+            <img id="popupImage">
+            <div class="close-container">
+                <span class="close" onclick="closePopup()">&times;</span>
+            </div>
+            <div class="swiper-button-prev" ></div>
+            <div class="swiper-button-next" ></div>
+        </div>
+        <div id="reviewsContainer" class="reviews-container"></div>
+    </div>
+
+    <script src="../js/imgClick.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var mySwiper = new Swiper('.swiper-container', {
+                effect: 'slide',
+                speed: 600,
+                slidesPerView: 5,
+                spaceBetween: 30,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // 다음 버튼 클릭 이벤트 바인딩
+            document.querySelector('.swiper-button-next').addEventListener('click', function () {
+                mySwiper.slideNext();
+            });
+
+            // 이전 버튼 클릭 이벤트 바인딩
+            document.querySelector('.swiper-button-prev').addEventListener('click', function () {
+                mySwiper.slidePrev();
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

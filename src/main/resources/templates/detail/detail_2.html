@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css" integrity="sha256-yUoNxsvX+Vo8Trj3lZ/Y5ZBf8HlBFsB6Xwm7rH75/9E=" crossorigin="anonymous">
+    <title>상세페이지2</title>
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/detailPage2.css"><!-- 앞서 만든 스타일 시트를 추가합니다 -->
+    <style>@font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    * {
+        font-family: 'Pretendard-Regular', sans-serif;
+    }
+    /* 스크롤바 설정*/
+    *::-webkit-scrollbar{
+        width: 10px;
+    }
+    /* 스크롤바 막대 설정*/
+    *::-webkit-scrollbar-thumb{
+        background-color: gainsboro;
+        /* 스크롤바 둥글게 설정    */
+        border-radius: 5px;
+        border-style: hidden;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin-bottom: 50px;
+    }
+
+    .test {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        position: relative;
+        margin-bottom: 50px;
+        align-items: center;
+    }
+
+    header {
+        padding-bottom: 5px;
+        border-style: hidden;
+        border-width: 0 0 1px 0;
+        box-shadow: 0 4px 4px -4px lightgray;
+    }
+
+    .search {
+        position: relative;
+        width: 300px;
+        margin-top: 30px;
+        margin-left: 10px;
+    }
+
+    .search input {
+        width: 100%;
+        border: 1px solid #bbb;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .search-btn {
+        position : absolute;
+        width: 17px;
+        top: 10px;
+        right: 12px;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2em;
+        color: #000;
+        background: black;
+        border: none;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+    }
+
+    .carousel-control-prev {
+        left: 170px;
+    }
+
+    .carousel-control-next {
+        right: 170px;
+    }
+
+    .card {
+        width: 250px;
+        height: 400px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative; /* 부모에게 상대 위치를 설정합니다. */
+        transition: transform 0.3s ease; /* 변화에 대한 부드러운 전환 효과를 추가합니다. */
+    }
+
+    .card:hover {
+        transform: scale(1.1); /* 마우스를 올릴 때의 크기를 1.1배로 확대합니다. */
+    }
+
+    .card-text {
+        position: absolute;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: none; /* 텍스트의 배경색 및 투명도 설정 */
+        padding: 10px;
+        text-align: center;
+    }
+
+    .card-text p {
+        margin: 0;
+        font-size: 1em; /* p의 글자 크기 조절 */
+        color: white; /* p의 글자 색상 조절 */
+        margin-top: 300px; /* p의 위 여백 조절 */
+        text-align: left;
+    }
+
+    .card-image {
+
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    p {
+        color: #555;
+    }
+
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/">
+                <img th:src="@{/img/pp로고.png}" alt="PP 로고" style="width: 150px; margin-top: 15px; margin-left: 0;">
+            </a>
+        </form>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/aboutus">고객 지원</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">로그인</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<br>
+<h2> 추천 여행지 </h2>
+<section class="sectionBody">
+    <div class="test">
+        <div class="card" th:each="des : ${desList}" th:data-keyword="${des.desName}" style="height: 300px">
+            <div class="card-text" th:text="${des.desName}"></div>
+            <div class="card-image" th:each="image : ${des.images}">
+                <img th:src="${image.imgCode}" >
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="sectionBody">
+
+    <div class="test">
+        <div class="card" th:each="des : ${randomDesList}" th:data-keyword="${des.desName}" style="height: 300px">
+            <div class="card-text" th:text="${des.desName}"></div>
+            <div class="card-image" th:each="image : ${des.images}">
+                <img th:src="${image.imgCode}" />
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    <p class="footer-info">
+        상호명 Pathport <br>
+        주소 서울특별시 서초구 서초대로77길 54 (서초더블유타워 13,14층) <br>
+        제휴 문의 partnership@pathport.com <br>
+        저희는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 상품·거래정보 및 거래에 대하여 책임을 지지않습니다.
+    </p>
+    <p class="footer-info">
+        <strong>고객지원 운영안내</strong><br>
+        채팅 상담 평일 10:00-17:00 <br>
+        유선 상담 평일 11:00-14:00 <br>
+        (점심시간 12:00-13:00) <br>
+        유선상담 0000-0000
+    </p>
+</footer>
+<script>
+    function goToSlide(slideNumber) {
+        $('#cardCarousel').carousel(slideNumber - 1);
+    }
+</script>
+<a href="#" class="btn btn-xs btn-block fixed-bottom-right" id="top-button">🔼</a>
+<div id="kakao-talk-channel-chat-button" data-channel-public-id="_rBEwG" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="../js/swiper-bundle.min.js"></script>
+<script src="../js/kakao.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.card').on('click', function() {
+            // 각 리스트의 데이터에서 키워드 값을 가져옵니다.
+            var keyword = $(this).data('keyword');
+
+            // 가져온 키워드로 URL을 생성합니다.
+            var url = 'http://localhost:8088/destinations/detail?keyword=' + keyword;
+
+            // 생성한 URL로 이동합니다.
+            window.location.href = url;
+        });
+    });
+
+</script>
+</body>
+</html>

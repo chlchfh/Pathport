@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+* {
+    font-family: 'Pretendard-Regular', sans-serif;
+}
+
+/* 모달이 화면 정 가운데에 나타나도록 하는 스타일 */
+.modal-dialog {
+    display: flex;
+    /*align-items: center;*/
+    min-height: calc(95% - 1rem); /* 모달이 상단과 하단에 최소 1rem 간격 유지 */
+}
+
+.modal-body {
+    display: flex;
+    position: relative;
+}
+.row {
+    margin-top: 35px;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+}
+#popupReview {
+    display: flex;
+    position: relative;
+    background-color: white;
+}
+
+#review-photo {
+    width: 150px;
+    height: 100px;
+}
+
+/* 부트스트랩의 변수를 재정의하여 원하는 색상으로 변경 */
+:root {
+    --carousel-control-color: #4f8fff;
+}
+
+/* 커스터마이즈한 변수를 사용하여 컨트롤 아이콘에 색상 적용 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(65%) sepia(23%) saturate(1712%) hue-rotate(208deg) brightness(96%) contrast(92%);
+}
+
+/* 버튼에 적용된 스타일을 조정하여 색상 적용 */
+.carousel-control-prev,
+.carousel-control-next {
+    color: var(--carousel-control-color);
+}

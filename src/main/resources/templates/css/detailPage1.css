@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+* {
+    font-family: 'Pretendard-Regular', sans-serif;
+}
+
+/* 스크롤바 설정*/
+*::-webkit-scrollbar{
+    width: 10px;
+}
+
+/* 스크롤바 막대 설정*/
+*::-webkit-scrollbar-thumb{
+    background-color: gainsboro;
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+header {
+    padding-bottom: 5px;
+    border-style: hidden;
+    border-width: 0 0 1px 0;
+    box-shadow: 0 4px 4px -4px lightgray;
+}
+
+.sectionBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container.mt-4{
+    display: block;
+}
+
+.content.text-left {
+    display: flex;
+}
+
+.recTrip {
+    padding-top: 10px;
+    max-width: 800px;
+}
+
+.asideContainer {
+    position: fixed;
+}
+
+.buttonBox {
+    position: sticky;
+    top:20px;
+    margin-top:35px;
+    margin-left: 50px;
+    padding: 10px;
+    border: 1px solid #9f9f9f;
+    border-radius: 10px;
+    height: 260px;
+    display: block;
+    justify-content: center;
+}
+
+.listBox {
+    margin: 10px;
+    max-width: 250px;
+    border: 1px solid #9f9f9f;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+.regiContent {
+    display: flex;
+    /*align-center: center;*/
+    justify-content: space-between;
+}
+
+.evaluate {
+    display: inline-flex;
+    font-size: small;
+}
+
+.filledStar {
+    margin-right: 5px;
+    display: flex;
+}
+
+.unfilledStar {
+    display: none;
+}
+
+.evaluateNumber {
+    font-size: small;
+}
+
+
+.swiper-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-wrapper{
+    margin-top: 5px;
+    height: auto;
+    width:100%;
+    position: relative;
+}
+
+.swiper-slide {
+    max-width: 100%;
+    height: auto;
+}
+
+.slide-img {
+    width: 100%;
+}
