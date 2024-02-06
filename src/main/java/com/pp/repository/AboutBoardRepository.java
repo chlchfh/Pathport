@@ -1,4 +1,4 @@
-package com.pp.persistence;
+package com.pp.repository;
 
 import com.pp.domain.AboutBoard;
 import com.pp.domain.User;

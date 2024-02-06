@@ -1,7 +1,7 @@
 package com.pp.service;
 
 import com.pp.domain.AboutBoard;
-import com.pp.persistence.ConTactRepository;
+import com.pp.repository.ConTactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

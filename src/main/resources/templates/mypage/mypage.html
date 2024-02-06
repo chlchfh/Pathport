@@ -282,13 +282,9 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light ">
         <form class="form-inline my-2 my-lg-0">
-            <a href="/home">
-                <img src="img/pp로고.png" alt="" style="width: 150px; margin-top: 15px; margin-left: 50px;">
+            <a href="/">
+                <img th:src="@{/img/pp로고.png}" alt="" style="width: 150px; margin-top: 15px; margin-left: 50px;">
             </a>
-            <div class="search">
-                <input type="text" placeholder="검색">
-                <a href="#" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
-            </div>
         </form>
         <!-- 오른쪽 링크들 -->
         <ul class="navbar-nav ml-auto">
@@ -322,9 +318,6 @@
     </form>
     <ul class="category-list">
         <li class="category-element">
-            <a href="mypage" class="nav-link" id="myReviewLink"><i class="fa-solid fa-folder-open"></i> 내가 쓴 후기</a>
-        </li>
-        <li class="category-element">
             <a href="aboutus/insertBoard" class="nav-link" id="writeReviewLink"><i class="fa-solid fa-pen-nib"></i> 후기 작성하기</a>
         </li>
         <li class="category-element">
@@ -352,51 +345,6 @@
         </div>
     </div>
 
-<!--    <div id="myReviewForm" class="container text-center">-->
-<!--        <table class="table table-bordered review-table">-->
-<!--            <thead class="text-center text-white">-->
-<!--            <th class="col-1 text-center">글번호</th>-->
-<!--            <th class="col-6">제목</th>-->
-<!--            <th class="col-1 text-center">등록일</th>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="board, state : ${pagedResult.getContent()}">-->
-<!--                <td th:text="${review.seq}"></td>-->
-<!--                <td><a th:href="@{/getBoard(seq=${review.seq})}" th:text="${review.rv_title}"></a></td>-->
-<!--                <td th:text="${#dates.format(review.rv_date, 'yyyy-MM-dd')}">-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-
-<!--    <div id="supportForm" class="container text-center">-->
-<!--        <table class="table table-bordered support-table">-->
-<!--            <thead class="text-center text-white">-->
-<!--            <th class="col-1 text-center">글번호</th>-->
-<!--            <th class="col-6">제목</th>-->
-<!--            <th class="col-1 text-center">등록일</th>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <p hidden="hidden" th:text="${session.user.getId()}"></p>-->
-<!--            <tr th:each="board : ${boardList}">-->
-<!--                <td th:text="${board.sup_code}"></td>-->
-<!--                <td>-->
-<!--                    &lt;!&ndash; 사용자 역할이 'user'인 경우 &ndash;&gt;-->
-<!--                    <a th:if="${user.role == 'user'}"-->
-<!--                       th:href="@{/user/answer/{supCode}(supCode=${board.sup_code})}"-->
-<!--                       th:text="${board.supTitle}">-->
-<!--                    </a>-->
-<!--                    &lt;!&ndash; 사용자 역할이 'admin'인 경우 &ndash;&gt;-->
-<!--                    <a th:unless="${user.role == 'user'}"-->
-<!--                       th:href="@{/admin/answer/{supCode}(supCode=${board.sup_code})}"-->
-<!--                       th:text="${board.supTitle}">-->
-<!--                    </a>-->
-<!--                </td>-->
-<!--                <td th:text="${#dates.format(board.supDate, 'yyyy-MM-dd')}"></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
 </section>
 
 <div id="kakao-talk-channel-chat-button" data-channel-public-id="_rBEwG" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>
@@ -424,65 +372,6 @@
         fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'kakao-js-sdk');
 
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     var showFormLink = document.getElementById("showFormLink");
-    //     var myInfoForm = document.getElementById("myInfoForm");
-    //     var myReviewForm = document.getElementById("myReviewForm");
-    //     var writeReviewForm = document.getElementById("writeReviewForm");
-    //     var supportForm = document.getElementById("supportForm");
-    //
-    //     myInfoForm.style.display = "block";
-    //     myReviewForm.style.display = "none";
-    //     writeReviewForm.style.display = "none";
-    //     supportForm.style.display = "none";
-    //
-    //     showFormLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "block";
-    //         myReviewForm.style.display = "none";
-    //         writeReviewForm.style.display = "none";
-    //         supportForm.style.display = "none";
-    //     });
-    //
-    //     var editInfoLink = document.getElementById("editInfoLink");
-    //     editInfoLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "none";
-    //         myReviewForm.style.display = "none";
-    //         writeReviewForm.style.display = "none";
-    //         supportForm.style.display = "none";
-    //     });
-    //
-    //     var bucketLink = document.getElementById("bucketLink");
-    //     bucketLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "none";
-    //         myReviewForm.style.display = "none";
-    //         writeReviewForm.style.display = "none";
-    //         supportForm.style.display = "none";
-    //     });
-    //
-    //     var myReviewLink = document.getElementById("myReviewLink");
-    //     myReviewLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "none";
-    //         myReviewForm.style.display = "block";
-    //         writeReviewForm.style.display = "none";
-    //         supportForm.style.display = "none";
-    //     });
-    //
-    //     var writeReviewLink = document.getElementById("writeReviewLink");
-    //     writeReviewLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "none";
-    //         myReviewForm.style.display = "none";
-    //         writeReviewForm.style.display = "block";
-    //         supportForm.style.display = "none";
-    //     });
-    //
-    //     var supportLink = document.getElementById("supportLink");
-    //     supportLink.addEventListener("click", function () {
-    //         myInfoForm.style.display = "none";
-    //         myReviewForm.style.display = "none";
-    //         writeReviewForm.style.display = "none";
-    //         supportForm.style.display = "block";
-    //     });
-    // });
 
 </script>
 </body>

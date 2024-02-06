@@ -26,7 +26,9 @@ public class LoginController {
     @Autowired
     private AboutBoardService aboutBoardService;
     @GetMapping("/login")
-    public String loginView() {
+    public String loginView(Model model) {
+        model.addAttribute("cssPath", "/css/login.css");
+        model.addAttribute("jsPath", "/js/login.js");
         return "login/login";
     }
 
@@ -37,7 +39,7 @@ public class LoginController {
         if(findUser != null && findUser.getPwd().equals(user.getPwd())) {
             model.addAttribute("user", findUser);   // session과 request 영역에 동시 저장. 즉, request.setAttribute("member", member)와 동일
             session.setAttribute("user", findUser);   // 세션에 사용자 정보 저장
-            return "mypage/mypage";
+            return "redirect:/";
         } else {
             return "redirect:login";
         }
@@ -95,4 +97,5 @@ public class LoginController {
         model.addAttribute("board", aboutBoard);
         return "mypage/userMypage1";  // 'user'가 답변을 볼 수 있는 페이지로 이동
     }
+
 }

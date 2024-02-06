@@ -6,35 +6,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathport</title>
 
-    <link rel="stylesheet" href="../css/login.css">
-    <script defer src="../js/login.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Montserrat", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ebecf0;
+            overflow: hidden;
+        }
+        .container {
+            border-radius: 10px;
+            box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+            position: absolute;
+            width: 768px;
+            min-height: 480px;
+            overflow: hidden;
+        }
+        #logo {
+            margin-bottom: -10px;
+        }
+        .tos {
+            font-size: x-small;
+        }
+
+        form {
+            background: #ebecf0;
+            display: flex;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        form input {
+            background: #eee;
+            padding: 16px;
+            margin: 8px 0;
+            width: 250px;
+            border: 0;
+            outline: none;
+            border-radius: 20px;
+            box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
+        }
+        button {
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 15px 45px;
+            margin: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 80ms ease-in;
+        }
+        .form_btn {
+            box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+        }
+        .form_btn:active {
+            box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+        }
+        .overlay_btn {
+            background-color: #2b79ff;
+            color: #fff;
+            box-shadow: -5px -5px 10px #3f7cff, 5px 5px 8px #302bbf;
+        }
+
+        #signIn {
+            margin-bottom: 10px;
+            margin-top: 140px;
+        }
+
+        #signUp {
+            margin-top: 57px;
+        }
+
+        .sign-in-container {
+            position: absolute;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            transition: all 0.5s;
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .password-toggle-btn {
+            display: flex;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: 0px;
+            margin-right: -20px;
+        }
+
+        .sign-up-container {
+            position: absolute;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            opacity: 0;
+            transition: all 0.5s;
+            margin: 5px;
+        }
+
+
+        .sign-up-content {
+            overflow-y: auto;
+            max-height: 230px;
+        }
+
+        #mail {
+            width: 150px;
+        }
+
+        #mail-btn {
+            width: 80px;
+            background-color: #3f7cff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        #nick-name {
+            width: 150px;
+        }
+
+        #nick-name-btn {
+            width: 80px;
+            background-color: #3f7cff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .gender-content {
+            width: 40px;
+            height: 15px;
+            font-size: medium;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 5%;
+        }
+
+        .gender-content label {
+            margin-right: 10px;
+            white-space: nowrap;
+            transform: rotate(0);
+        }
+
+        #g_male {
+            margin-right: 20%;
+        }
+
+        #g_female {
+            margin-right: 20%;
+        }
+
+        .sign-up-container form input {
+            width: 240px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #CACACA;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .sign-up-container form input:focus {
+            border-bottom-width: 2px;
+        }
+
+        .overlay-left {
+            display: flex;
+            flex-direction: column;
+            padding: 0 50px;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            opacity: 0;
+            background-color: #2b79ff;
+            color: #fff;
+            transition: all 0.5s;
+        }
+
+        .overlay-left-text {
+            margin-top: 75px;
+            margin-bottom: -25px;
+        }
+
+        .overlay-right {
+            display: flex;
+            flex-direction: column;
+            padding: 0 50px;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-color: #2b79ff;
+            color: #fff;
+            transition: all 0.5s;
+        }
+
+        .overlay-close-btn {
+            position: absolute;
+            top: -20px;
+            right: -30px;
+            background: none;
+            border: none;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 2;
+        }
+        .container.right-panel-active .overlay-right {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        .container.right-panel-active .overlay-left {
+            transform: translateX(-100%);
+            opacity: 1;
+            z-index: 2;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        form h1 {
+            font-weight: bold;
+            margin: 0;
+            color: #000;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+        span {
+            font-size: 12px;
+            color: #000;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+
+        .social-links div {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            border-radius: 50%;
+            box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+            cursor: pointer;
+        }
+        .social-links a {
+            color: #000;
+        }
+        .social-links div:active {
+            box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+        }
+    </style>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="container">
         <div class="sign-up-container">
-            <form>
+            <form action="" method="post" name="joinForm">
                 <h2>계정 생성하기</h2>
 
                 <div class="sign-up-content">
-                <input id="mail" type="email" placeholder="이메일">
+                    <input id="mail" type="text" name="username" placeholder="이메일">
                     <button id="mail-btn">인증하기</button>
 
-                <input type="password" placeholder="비밀번호">
-                <input type="password" placeholder="비밀번호 확인">
-                <input type="text" placeholder="이름">
-                <input id="nick-name" type="text" placeholder="닉네임">
-                    <button id="nick-name-btn">중복확인</button>
+                    <input type="password" id="password" name="password" placeholder="비밀번호">
+                    <div class="strongPassword-message hide">8글자 이상, 영문, 숫자, 특수문자($!%*#?&)를 사용하세요.</div>
 
-                <div class="gender-content">
-                <input id="g_male" type="radio" name="gender" value="male">
-                    <label for="g_male">남자</label>
-                <input id="g_female" type="radio" name="gender" value="female">
-                    <label for="g_female">여자</label>
-                </div>
+                    <input type="password" id="password-retype" placeholder="비밀번호 확인">
+                    <div class="mismatch-message hide">비밀번호가 일치하지 않습니다.</div>
 
-                <input type="text" placeholder="생년월일 ex) 901205">
+                    <input type="text" name="name" placeholder="이름">
+                    <input id="nick-name" name="nn" type="text" placeholder="닉네임">
+                    <button id="nick-name-btn" onclick="checkNickname()">중복확인</button>
+
+                    <div class="gender-content">
+                        <input id="g_male" type="radio" name="gender" value="male">
+                        <label for="g_male">남자</label>
+                        <input id="g_female" type="radio" name="gender" value="female">
+                        <label for="g_female">여자</label>
+                    </div>
+
+                    <input type="text" name="birth" placeholder="생년월일 ex) 901205">
                 </div>
 
                 <button class="form_btn">이메일 회원가입</button>
@@ -42,48 +346,52 @@
             </form>
         </div>
         <div class="sign-in-container">
-            <form>
+            <form action="/login" method="post" name="loginForm" id="loginForm">
                 <div id="logo">
-                        <img src="../img/pplogo.png" alt="로고" width="80" height="80" >
+                    <img th:src="@{/img/pp로고.png}" alt="로고" width="120" height="80" />
                 </div>
                 <div class="social-links">
                     <div>
-                        <img src="../img/google.png" alt="구글" width="26" height="26">
+                        <a th:href="@{http://localhost:8088/login/oauth2/code/google}"><img th:src="@{/img/google.png}" alt="구글계정 로그인" width="25" height="25"/></a>
                     </div>
                     <div>
-                        <img src="../img/kakao.png" alt="카카오" width="25" height="25">
+                        <a th:href="@{http://localhost:8088/login/oauth2/code/kakao}"><img th:src="@{/img/kakao.png}" alt="카카오계정 로그인" width="25" height="25"/></a>
                     </div>
                     <div>
-                        <img src="../img/naver.png" alt="네이버" width="26" height="26">
+                        <a th:href="@{http://localhost:8088/login/oauth2/code/naver}"><img th:src="@{/img/naver.png}" alt="네이버계정 로그인" width="25" height="25"/></a>
                     </div>
                 </div>
                 <span>또는 이메일로 시작하기</span>
-                <input type="email" placeholder="이메일">
+                <input type="text" name="id" placeholder="이메일">
                 <div class="password-container">
                     <div>
-                        <input type="password" placeholder="비밀번호">
+                        <input type="password" name="pwd" placeholder="비밀번호">
                     </div>
 
                     <div>
-                        <button id="togglePasswordBtn" class="password-toggle-btn" onclick="togglePasswordVisibility()">&#x1F441;</button>
+                        <button type="button" id="togglePasswordBtn" class="password-toggle-btn" value="login">&#x1F441;</button>
                     </div>
                 </div>
+                <div id="forgot-password-link">
+                    <input type="checkbox" id="login-keep" name="remember">
+                    <label for="login-keep">로그인 유지</label>
+                    <a th:href="@{/findPassword}">비밀번호 찾기</a>
+                </div>
 
-                <button class="form_btn">이메일 로그인</button>
+                <button type="submit" class="form_btn">이메일 로그인</button>
                 <p class="tos">계속 진행할 경우, pathport의 이용약관에 동의한 것으로 간주됩니다.</p>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay-left">
                 <div class="overlay-left-text">
-                <h2>계정을 생성하셨나요?</h2>
-                <p>로그인하여 pathport와 함께해보세요.</p>
+                    <h2>계정을 생성하셨나요?</h2>
+                    <p>로그인하여 pathport와 함께해보세요.</p>
                 </div>
                 <button id="signIn" class="overlay_btn">로그인</button>
                 <p class="tos">계속 진행할 경우, pathport의 이용약관에 동의한 것으로 간주됩니다.</p>
             </div>
             <div class="overlay-right">
-                <button id="closeButton" class="overlay-close-btn">&times;</button>
                 <h2>아직 계정을 생성하지 않으셨나요?</h2>
                 <p>pathport와 함께 행복한 여행을 시작해보세요.</p>
                 <button id="signUp" class="overlay_btn">이메일 회원가입</button>

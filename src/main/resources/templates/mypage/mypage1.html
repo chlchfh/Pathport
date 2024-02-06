@@ -55,6 +55,36 @@
             background-color: rgba(0, 0, 0, 0);
         }
 
+        header {
+            padding-bottom: 5px;
+            border-style: hidden;
+            border-width: 0 0 1px 0;
+            box-shadow: 0 4px 4px -4px lightgray;
+        }
+
+        .search {
+            position: relative;
+            width: 300px;
+            margin-top: 30px;
+            margin-left: 10px;
+        }
+
+        .search input {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            position : absolute;
+            width: 17px;
+            top: 10px;
+            right: 12px;
+            margin: 0;
+        }
+
         /* 나머지 사용자 정의 스타일 추가 */
 
         /* ... */
@@ -64,14 +94,31 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <!-- 왼쪽 로고 또는 사이트 이름 -->
-        <a class="navbar-brand" th:href="@{/}">Pathport</a>
-
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/">
+                <img th:src="@{/img/pp로고.png}" alt="" style="width: 150px; margin-top: 15px; margin-left: 50px;">
+            </a>
+        </form>
         <!-- 오른쪽 링크들 -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/aboutus/aboutus}">고객 지원</a>
+                <a class="nav-link" href="/aboutus/aboutus">고객 지원</a>
+            </li>
+            <!-- 로그인 상태인 경우 프로필 이미지와 드롭다운 메뉴 표시 -->
+            <li class="nav-item dropdown" th:if="${user != null}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="https://image.idus.com/image/files/ddd9ac8dd08343f1819fb9aecd5676fe_1440.jpg" alt="프로필 이미지" class="profile-image" style="width: 30px; border-radius: 70%;">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/mypage">마이페이지</a>
+                    <a class="dropdown-item" href="/logout">로그아웃</a>
+                </div>
+            </li>
+
+            <!-- 로그인 상태가 아닌 경우 로그인 링크 표시 -->
+            <li class="nav-item" th:if="${user == null}">
+                <a class="nav-link" href="/login">로그인</a>
             </li>
         </ul>
     </nav>
